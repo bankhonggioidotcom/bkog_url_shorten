@@ -1,10 +1,10 @@
 //  firebase-url-shortener  -   https://github.com/ajzbc/firebase-url-shortener
-//  created by @ajzbc       -   https://ajzbc.com
+//  created by @ajzbc       -   https://bankhonggioi.com
 
-let projectID = "fire-url" //replace with your project id
-let collection = "list" // replace with the firestore collection you want to use
+let projectID = "bkogtop" //replace with your project id
+let collection = "url_list" // replace with the firestore collection you want to use
 var local = window.location.href //shortened url used when displaying shortened url
-var hashLength = 5 //length of random hash
+var hashLength = 4 //length of random hash
 
 var api = "https://firestore.googleapis.com/v1beta1/projects/"+projectID+"/databases/(default)/documents/"+collection;
 
@@ -88,7 +88,7 @@ function postShort(long, hash) {
     }
     }).then(res => res.json())
     .then(response => {
-        notice("successfully shortened link", "good");
+        notice("Rút gọn link thành công!", "good");
         addLink(local + "#" + hash);
     })
     .catch(error => console.error('Error:', error));
@@ -118,7 +118,7 @@ function short() {
     if(document.getElementById("url").value != "") {
         regexp =  /^(?:(?:https?|ftp):\/\/)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/\S*)?$/;
         if(!regexp.test(longURL())) {
-            notice("Please enter a valid url");
+            notice("Hãy nhập url hợp lệ");
             document.getElementById("url").value = "";
         } else {
             if(document.getElementById("custom").value == "") {
@@ -131,7 +131,7 @@ function short() {
                     checkCustom(custom, function(status){
                         if(status == false) {
                             document.getElementById("custom").value = "";
-                            notice("Custom alias taken");
+                            notice("Mẫu đã được sử dụng");
                         }
                         else {
                             postShort(longURL(), custom);
@@ -140,12 +140,12 @@ function short() {
                 }
                 else {
                     document.getElementById("custom").value = "";
-                    notice("Custom alias can only contains letters and numbers");
+                    notice("Mẫu tuỳ chỉnh chỉ được gồm chữ và số");
                 }
             }
         }
     }
     else {
-        notice("Please enter a url to shorten");
+        notice("Nhập url cần rút gọn");
     }
 }
